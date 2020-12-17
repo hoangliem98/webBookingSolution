@@ -1,0 +1,85 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Books
+@model BookViewModel 
+@{
+    ViewData["Title"] = "Party Booking - BookResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header success">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Đặt hàng thành công</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="content">
+    <div class="container">
+        <div class="row ">
+            <div class="tour-booking-form">
+                <h1>Chi tiết đơn hàng</h1>
+                <hr style="width: 100% !important;" align="center" />
+                <div class="booking-result">
+                    <p class="title-booking">Mã đơn hàng:</p>
+                    <p>@Model.Id</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Sảnh tiệc:</p>
+                    <p>@Model.HallName ( @Model.HallPrice.ToString("#,###") đồng )</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Buổi:</p>
+                    <p>@Model.Season</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Số bàn:</p>
+                    <p>@Model.NumberTables</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Thực đơn:</p>
+                    <p>@Model.MenuName ( @Model.MenuPrice.ToString("#,###") đồng )</p>
+                </div>
+                @if (Model.Service == null)
+                {
+                    <div class="booking-result">
+                        <p class="title-booking">Dịch vụ:</p>
+                        <p>Không có</p>
+                    </div>
+                }
+                @if (Model.Service != null)
+                {
+                    <p style="margin-bottom: 8px;">Dịch vụ:</p>
+                    <ul class="list-group" style="margin: 0 0 30px 40px;">
+                        @foreach (var item in Model.Service)
+                        {
+                            <li>@item.Name ( @item.Price.ToString("#,###") đồng )</li>
+                        }
+                    </ul>
+                }
+                <div class="booking-result">
+                    <p class="title-booking">Khách hàng:</p>
+                    <p>@Model.CustomerName</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Ngày tổ chức:</p>
+                    <p>@Model.OrganizationDate.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Ngày đặt:</p>
+                    <p>@Model.BookDate.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="booking-result">
+                    <p class="title-booking">Tổng tiền:</p>
+                    <p>@Model.Price.ToString("#,###") đồng</p>
+                </div>
+                <hr style="width: 100% !important;" align="center" />
+                <small><strong>Cảm ơn quý khách đã lựa chọn chúng tôi.</strong></small><br />
+                <small><strong>Lưu ý: </strong> Quý khách vui lòng thanh toán trước khi  tiệc được tổ chức tránh mất thêm phí. ( Thanh toán trễ phạt 1%/ngày )</small>
+            </div>
+        </div>
+    </div>
+</div>

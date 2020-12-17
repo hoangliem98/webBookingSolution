@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201104041910_initdatabase.cs" />
+    <Compile Remove="Migrations\20201104041910_initdatabase.Designer.cs" />
+    <Compile Remove="Migrations\20201104050009_initdatabase.cs" />
+    <Compile Remove="Migrations\20201104050009_initdatabase.Designer.cs" />
+    <Compile Remove="Migrations\20201104050152_initdatabase.cs" />
+    <Compile Remove="Migrations\20201104050152_initdatabase.Designer.cs" />
+    <Compile Remove="Migrations\20201104092303_Account.cs" />
+    <Compile Remove="Migrations\20201104092303_Account.Designer.cs" />
+    <Compile Remove="Migrations\20201105025821_addColumnStatusOfHall.cs" />
+    <Compile Remove="Migrations\20201105025821_addColumnStatusOfHall.Designer.cs" />
+    <Compile Remove="Migrations\20201105042720_addHallImage.cs" />
+    <Compile Remove="Migrations\20201105042720_addHallImage.Designer.cs" />
+    <Compile Remove="Migrations\20201105043729_initDatabase.cs" />
+    <Compile Remove="Migrations\20201105043729_initDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20201105071122_ChangFileSizeType.cs" />
+    <Compile Remove="Migrations\20201105071122_ChangFileSizeType.Designer.cs" />
+    <Compile Remove="Migrations\20201105095327_initDatabase.cs" />
+    <Compile Remove="Migrations\20201105095327_initDatabase.Designer.cs" />
+    <Compile Remove="Migrations\20201109015931_addDOBForCusNEm.cs" />
+    <Compile Remove="Migrations\20201109015931_addDOBForCusNEm.Designer.cs" />
+    <Compile Remove="Migrations\20201109082300_editTypePhone.cs" />
+    <Compile Remove="Migrations\20201109082300_editTypePhone.Designer.cs" />
+    <Compile Remove="Migrations\20201109082813_editAccount.cs" />
+    <Compile Remove="Migrations\20201109082813_editAccount.Designer.cs" />
+    <Compile Remove="Migrations\20201109083130_initDb.cs" />
+    <Compile Remove="Migrations\20201109083130_initDb.Designer.cs" />
+    <Compile Remove="Migrations\20201109083325_initDb.cs" />
+    <Compile Remove="Migrations\20201109083325_initDb.Designer.cs" />
+    <Compile Remove="Migrations\20201109084022_initDb.cs" />
+    <Compile Remove="Migrations\20201109084022_initDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+  </ItemGroup>
+
+</Project>

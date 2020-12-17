@@ -1,0 +1,88 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Books
+@model BookBigViewModel
+@{
+    ViewData["Title"] = "Admin - Book List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Danh sách đơn hàng</h1>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            @if (!Html.ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">@Html.ValidationSummary()</div>
+            }
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Id</th>
+                            <th class="text-center">Sảnh</th>
+                            <th class="text-center">Thực đơn</th>
+                            <th class="text-center">Dịch vụ</th>
+                            <th class="text-center">Khách hàng</th>
+                            <th class="text-center">Buổi</th>
+                            <th class="text-center">Số bàn</th>
+                            <th class="text-center" style="width: 13%">Ngày tổ chức</th>
+                            <th class="text-center">Giá tiền</th>
+                            <th class="text-center">Thanh toán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.bookViewModels)
+                        {
+                            <tr>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.HallName)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.MenuName)</td>
+                                <td style="width: 100%;">
+                                    @if (item.Service.Count > 0)
+                                    {
+                                        <ul class="list-group">
+                                            @foreach (var service in item.Service)
+                                            {
+                                                <li class="list-group-item">@service.Name</li>
+                                            }
+                                        </ul>
+                                    }
+                                    @if (item.Service.Count == 0)
+                                    {
+                                        <p style="text-align: center;">Không có</p>
+                                    }
+                                </td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.Season)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.NumberTables)</td>
+                                <td class="text-center">@item.OrganizationDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">@item.Price.ToString("#,###")</td>
+                                <td>
+                                    @if (item.Status == "Chưa thanh toán")
+                                    {
+                                        <form asp-controller="Payment" asp-action="Create" enctype="multipart/form-data" method="post">
+                                            <input type="hidden" asp-for="bookViewModel.Id" value="@item.Id" />
+                                            <button type="submit" class="btn btn-success">Thanh toán</button>
+                                        </form>
+                                    }
+                                    @if (item.Status == "Đã thanh toán")
+                                    {
+                                        <p style="text-align: center;">@item.Status</p>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#booking').addClass('active');
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+    </script>
+}
+

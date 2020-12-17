@@ -1,0 +1,88 @@
+﻿@using webBookingSolution.ViewModels.System
+@model RegisterRequest
+
+@{
+    Layout = null;
+}
+
+<form asp-action="Register" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label>Tên tài khoản<span class="text-danger"> *</span></label>
+        <input class="form-control" type="text" asp-for="UserName" placeholder="Tên tài khoản" required
+               oninvalid="this.setCustomValidity('Vui lòng nhập tên tài khoản')"
+               oninput="this.setCustomValidity('')" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Mật khẩu<span class="text-danger"> *</span></label>
+        <input class="form-control" type="password" asp-for="Password" placeholder="Mật khẩu" required
+               oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu')"
+               oninput="this.setCustomValidity('')" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Nhập lại mật khẩu<span class="text-danger"> *</span></label>
+        <input class="form-control" type="password" asp-for="ConfirmPassword" placeholder="Xác nhận mật khẩu" required
+               oninvalid="this.setCustomValidity('Vui lòng lại nhập mật khẩu')"
+               oninput="this.setCustomValidity('')" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <h3 class="page-header">Thông tin cá nhân</h3>
+    <div style="display: flex;">
+        <div class="form-group" style="width: 49%; margin-right: 2%">
+            <label style="margin-left: 1%;">Họ<span class="text-danger"> *</span></label>
+            <input class="form-control" type="text" asp-for="FirstName" placeholder="Họ" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập họ')"
+                   oninput="this.setCustomValidity('')" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="width: 49%;">
+            <label style="margin-left: 1%;">Tên<span class="text-danger"> *</span></label>
+            <input class="form-control" type="text" asp-for="LastName" placeholder="Tên" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập tên')"
+                   oninput="this.setCustomValidity('')" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div style="display: flex;">
+        <div class="form-group" style="width: 49%; margin-right: 2%;">
+            <label style="margin-left: 1%;">Ngày sinh<span class="text-danger"> *</span></label>
+            <div class="input-group date" id="datepicker">
+                <input type="text" class="form-control" asp-for="DOB" placeholder="Ngày sinh" readonly />
+                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+            </div>
+        </div>
+        <div class="form-group" style="width: 49%;">
+            <label style="margin-left: 1%;">Số điện thoại<span class="text-danger"> *</span></label>
+            <input class="form-control" type="text" asp-for="PhoneNumber" placeholder="Số điện thoại" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')"
+                   oninput="this.setCustomValidity('')" />
+
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Hình ảnh<span class="text-danger"> *</span></label>
+        <input type="file" class="input-img" asp-for="Image" id="image_upload" />
+        <label class="instead-img" for="image_upload">
+            <img class="image_preview_container" src="/images/preview.jpg" alt="preview image" />
+        </label>
+    </div>
+    <div style="display: flex;">
+        <div class="form-group" style="width: 49%; margin-right: 2%">
+            <label style="margin-left: 1%;">Email<span class="text-danger"> *</span></label>
+            <input class="form-control" type="text" asp-for="Email" placeholder="Email" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập email')"
+                   oninput="this.setCustomValidity('')" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="width: 49%;">
+            <label style="margin-left: 1%;">Địa chỉ<span class="text-danger"> *</span></label>
+            <input class="form-control" type="text" asp-for="Address" placeholder="Địa chỉ" required
+                   oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ')"
+                   oninput="this.setCustomValidity('')" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+    </div>
+    <button class="btn btn-primary" style="margin: 0 44%;" type="submit">Đăng ký</button>
+</form>

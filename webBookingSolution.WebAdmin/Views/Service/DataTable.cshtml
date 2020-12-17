@@ -1,0 +1,61 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Services
+@model List<ServiceViewModel>
+
+@{
+    Layout = null;
+}
+
+<h1 class="h3 mb-2 text-gray-800">Quản lý dịch vụ</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3" style="display: flex;">
+        <h6 class="m-0 font-weight-bold text-primary" style="width: 50%; padding-top: 8px;">Danh sách dịch vụ</h6>
+        <div style="width: 50%;">
+            <a href="create" class="button-them">
+                <i class="fa fa-plus-square" aria-hidden="true"></i> Thêm
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.SuccessMsg != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.SuccessMsg
+            </div>
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Tên dịch vụ</th>
+                        <th class="text-center" style="width: 0 !important">Mô tả</th>
+                        <th class="text-center">Hình ảnh</th>
+                        <th class="text-center">Giá tiền</th>
+                        <th class="text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    @foreach (var item in Model)
+                    {
+                        string price = item.Price.ToString("#,###");
+                        <tr>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="text-center minimize">@Html.Raw(item.Description)</td>
+                            <td class="text-center"><img class="admin-image" src="@item.Image" alt="@item.Name" /></td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => price)</td>
+                            <td class="text-center" style="width: 15%;">
+                                <a class="btn btn-light" title="Sửa" href="/service/update/@item.Id">
+                                    <i class="fa fa-pencil" style="color: #0094cf"></i>
+                                </a>
+                                <button class="btn btn-light" id="btnDelete" onclick="Delele(@item.Id);" title="Xóa" type="submit">
+                                    <i class="fa fa-trash-o" style="color: red"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

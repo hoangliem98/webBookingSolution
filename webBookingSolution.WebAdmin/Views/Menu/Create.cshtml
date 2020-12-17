@@ -1,0 +1,68 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Menus
+@model MenuCreateRequest
+
+@{
+    ViewData["Title"] = "Admin - Menu Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Thêm thực đơn</h1>
+        </div>
+        <div class="col-lg-7" style="padding-bottom:120px">
+            @if(!Html.ViewData.ModelState.IsValid){
+                <div class="alert alert-danger">@Html.ValidationSummary()</div>
+            }
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label>Tên thực đơn<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="Name" placeholder="Tên thực đơn" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập tên thực đơn')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <div class="form-group">
+                    <label>Mô tả<span class="text-danger"> *</span></label>
+                    <textarea class="form-control ckeditor" asp-for="Content" id="content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Hình ảnh<span class="text-danger"> *</span></label>
+                    <input type="file" class="input-img" asp-for="Image" id="image_upload" />
+                    <label class="instead-img" for="image_upload">
+                        <img class="image_preview_container" src="/images/preview.jpg" alt="preview image" />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Số tiền (trên 1 bàn)<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="number" asp-for="Price" placeholder="Số tiền trên một bàn" required
+                           oninvalid="this.setCustomValidity('Vui lòng không để trống trường này')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <button class="btn btn-danger" type="submit">Thêm thực đơn</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#menu').addClass('active');
+
+        $("form").submit(function (e) {
+            var _contents = Number(CKEDITOR.instances.content.getData().replace(/<[^>]*>/gi, '').length);
+            if (_contents == 0) {
+                alert('Vui lòng nhập nội dung thực đơn');
+                return false;
+            }
+            if ($('#image_upload').val() == "") {
+                alert('Vui lòng chọn ảnh');
+                return false;
+            }
+        });
+
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+    </script>
+}
+

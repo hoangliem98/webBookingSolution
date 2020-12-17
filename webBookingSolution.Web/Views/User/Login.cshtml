@@ -1,0 +1,78 @@
+﻿@using webBookingSolution.ViewModels.System
+@model LoginRequest
+
+@{
+    ViewData["Title"] = "Party Booking - Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Đăng nhập</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="tour-booking-form">
+        @if (ViewBag.FailedMsg != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.FailedMsg
+            </div>
+        }
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <form class="user" asp-action="Login" asp-controller="User" method="post">
+                    <div class="form-group">
+                        <label>Tên đăng nhập<span class="text-danger"> *</span></label>
+                        <input class="form-control form-control-user" type="text" asp-for="UserName" placeholder="Nhập tên đăng nhập" required
+                               oninvalid="this.setCustomValidity('Vui lòng nhập tên đăng nhập')"
+                               oninput="this.setCustomValidity('')" />
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel class="control-label" value="#{Msg['user.password']}" />
+                        <label>Mật khẩu<span class="text-danger"> *</span></label>
+                        <input class="form-control form-control-user" type="password" asp-for="Password" placeholder="Nhập mật khẩu" required
+                               oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu')"
+                               oninput="this.setCustomValidity('')" />
+                    </div>
+                    <div style="display:block;text-align:center;margin-bottom: 3%;">
+                        <button class="btn btn-primary" style="width:50%;">Đăng nhập</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <div style="display: block;text-align: center; margin-bottom: 1%;">
+                        <label>Hoặc đăng nhập với?</label>
+                    </div>
+                    <div style="display:flex;justify-content: center;">
+                        <form class="user" asp-action="ExternalLogin" asp-controller="User" method="post" style="width: 49%; margin-right: 2%;">
+                            <button type="submit" class="btn" name="provider" value="Facebook" style="width: 100%;background-color: #3B5998; color: white;">
+                                <i class="fa fa-facebook"></i> Facebook
+                            </button>
+                        </form>
+                        <form class="user" asp-action="ExternalLogin" asp-controller="User" method="post" style="width: 49%;">
+                            <button type="submit" class="btn" name="provider" value="Google" style="width: 100%; background-color: #ff0000; color: white;">
+                                <i class="fa fa-google"></i> Google+
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+    </script>
+}

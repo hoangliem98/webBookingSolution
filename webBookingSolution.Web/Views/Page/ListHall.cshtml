@@ -1,0 +1,44 @@
+﻿@using webBookingSolution.ViewModels.Common;
+@using webBookingSolution.ViewModels.Catalog.Halls;
+@model PagedResult<HallViewModel>
+
+@{
+    ViewData["Title"] = "Party Booking - Hall List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header hall">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Sảnh tiệc</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr width="90%" align="center" />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="destination-block">
+                    <div class="desti-img">
+                        <img src="@item.ListImage[0].Path" alt="@item.Name" />
+                        <a href="#" class="desti-title">@item.Name</a>
+                        <div class="overlay"></div>
+                        <div class="text">
+                            <span class="item-content">@Html.Raw(item.Description)</span>
+                            <p class="item-price">@item.Price.ToString("#,###")<small> đồng</small></p>
+                            <a href="/Page/HallDetail/@item.Id" class="btn-link">Xem ngay<i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @await Component.InvokeAsync("Pager", Model)
+</div>
+

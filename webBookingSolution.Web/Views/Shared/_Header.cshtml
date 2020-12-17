@@ -1,0 +1,75 @@
+﻿@using System.Security.Claims
+<div class="header-wrapper">
+    <div class="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-7 col-md-8 d-none d-xl-block d-sm-block">
+                    <div class="top-header-content">
+                        <ul class="list-none">
+                            <li><i class="fa fa-envelope top-header-icon"></i> ou@ou.edu.vn</li>
+                            <li><i class="fa fa-phone top-header-icon"></i> (028) 3930 0210</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6 col-8 d-none d-block d-sm-block">
+                    <div class="top-header-content">
+                        <ul class="list-none">
+                            @if (@User.Identity.IsAuthenticated)
+                            {
+                                @if (@User.FindFirst(ClaimTypes.Role)?.Value == "1")
+                                {
+                                    <li><a href="/User/EmployeeUpdate/@User.FindFirst("UserId")?.Value">Chào @User.Identity.Name !!!</a></li>
+                                }
+                                @if (@User.FindFirst(ClaimTypes.Role)?.Value == "0")
+                                {
+                                    <li><a href="/User/CustomerUpdate/@User.FindFirst("UserId")?.Value">Chào @User.Identity.Name !!!</a></li>
+                                }
+                                @if (@User.FindFirst(ClaimTypes.Role)?.Value == null)
+                                {
+                                    <li><a @*href="/User/CustomerUpdate/@User.FindFirst("UserId")?.Value"*@>Chào @User.Identity.Name !!!</a></li>
+                                }
+                                <li style="border-right: 0px;">
+                                    <form id="logout" asp-controller="User" asp-action="Logout">
+                                        <a href="#" onclick="$('#logout').submit()">Đăng xuất</a>
+                                    </form>
+                                </li>
+                            }
+                            @if (@User.Identity.IsAuthenticated == false)
+                            {
+                                <li><a href="/User/Login">Đăng nhập</a></li>
+                                <li><a href="/User/Register">Đăng ký</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class=" col-xl-1 col-lg-1 col-md-1 col-sm-1 col-4">
+                    <a href="#" id="search" class="search-icon" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2 col-md-3 col-sm-3 col-12">
+                    <div class="logo"> <a href="/"><img src="/images/logo.png" alt="Party Booking - Trang chủ" style="width: 30%;" /> </a> </div>
+                </div>
+                <div class="col-xl-9 col-lg-10 col-md-9 col-sm-12 col-12">
+                    <div class="navigation">
+                        <div id="navigation">
+                            <ul>
+                                <li class="active"><a href="/">Trang chủ</a></li>
+                                <li><a href="/Page/ListHall">Sảnh</a></li>
+                                <li><a href="/Page/ListMenu">Thực đơn</a></li>
+                                <li><a href="/Page/ListService">Dịch vụ</a></li>
+                                <li><a href="/Page/Contact">Liên hệ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

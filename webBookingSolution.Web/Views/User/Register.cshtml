@@ -1,0 +1,50 @@
+﻿
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Đăng ký tài khoản</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="tour-booking-form">
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">@Html.ValidationSummary()</div>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            @await Html.PartialAsync("RegisterExternalForm")
+        }
+        @if (User.Identity.IsAuthenticated == false)
+        {
+            @await Html.PartialAsync("RegisterForm")
+        }
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                changeYear: true,
+                changeMonth: true,
+                yearRange: "-100:+20"
+            });
+        });
+    </script>
+}
+

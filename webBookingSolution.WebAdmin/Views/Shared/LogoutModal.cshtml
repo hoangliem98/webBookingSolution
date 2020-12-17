@@ -1,0 +1,19 @@
+﻿<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bạn có muốn đăng xuất ?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Chọn nút đăng xuất để rời khỏi...</div>
+            <form method="post" asp-controller="User" asp-action="Logout">
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <button class="btn btn-primary" type="submit">Đăng xuất</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

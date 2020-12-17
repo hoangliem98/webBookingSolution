@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Admin - User List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    @await Html.PartialAsync("DataTable")
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#user').addClass('active');
+        function Delele(Id) {
+            swal({
+                title: 'Bạn có chắc chắn muốn xóa?',
+                text: "Việc xóa dữ liệu này có thể sẽ ảnh hưởng đến các dữ liệu liên quan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "/User/Delete/" + Id,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+                        success: function (res) {
+                            $('.container-fluid').html(res.html);
+                            swal("Thành công!", "Dữ liệu đã được xóa.", "success");
+                        },
+                        error: function () {
+                            swal("Thất bại!", "Dữ liệu chưa được xóa.", "error");
+                        },
+                        complete: function () {
+                            swal("Thành công!", "Dữ liệu đã được xóa.", "success").then(
+                                window.location.reload(true)
+                            );
+                        },
+                    });
+                }
+            });
+        }
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+    </script>
+}

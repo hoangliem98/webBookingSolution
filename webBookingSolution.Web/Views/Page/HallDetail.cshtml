@@ -1,0 +1,89 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Halls
+@model HallViewModel
+
+@{
+    ViewData["Title"] = "Party Booking - HallDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pageheader">
+    <img class="img-header" src="@Model.ListImage[0].Path" alt="images" />
+    <div class="text-inside">
+        <h1 class="text-white item-name">@Model.Name</h1>
+        <p class="text-white item-price">
+            Giá tiền: @Model.Price.ToString("#,###")<small> đồng</small>
+        </p>
+        <a href="/Page/Booking" class="btn btn-primary mb10">Đặt sảnh</a>
+    </div>
+</div>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 col-12">
+                <div class="highlights-section mb60">
+                    <h4 class="mb30" style="text-transform: capitalize;">@Model.Name</h4>
+                    <ul class="angle list-none title-bold mb40">
+                        <li>Số bàn tối thiểu: @Model.MinimumTables bàn</li>
+                        <li>Số bàn tối đa: @Model.MaximumTables bàn</li>
+                    </ul>
+                    <div class="slide-thumb-gallery">
+                        <div class="owl-carousel" data-slider-id="1">
+                            @foreach (var item in Model.ListImage)
+                            {
+                                <div><img src="@item.Path" alt="@Model.Name" class="img-fluid"></div>
+                            }
+                        </div>
+                        @if (Model.ListImage.Count > 1)
+                        {
+                            <div class="owl-thumbs" data-slider-id="1">
+                                @foreach (var item in Model.ListImage)
+                                {
+                                    <button class="owl-thumb-item"><img src="@item.Path" alt="@Model.Name" class="img-fluid"></button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="journey-section mb60">
+                    <div class="well-bg-block">
+                        <h4 class="journey-day-title">Mô tả sảnh tiệc</h4>
+                        <span>@Html.Raw(Model.Description)</span>
+                    </div>
+                </div>
+                <div class="included-section mb60">
+                    <div class="well-bg-block fullwidth">
+                        <h3 class="journey-day-title">Tiện nghi</h3>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <ul class="arrow list-none">
+                                    <li>Sảnh tiệc độc đáo, phong cách mới lạ</li>
+                                    <li>Lên thực đơn hợp lý</li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <ul class="arrow list-none">
+                                    <li>Cung cấp đa dạng các loại hình dịch vụ khác nhau</li>
+                                    <li>Đảm bảo bạn hài long khi đến với chúng tôi</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
+                <div class="widget-primary support-list">
+                    <div class="widget-primary-title">
+                        <h3>Tại sao nên đến với chúng tôi ?</h3>
+                    </div>
+                    <ul class="arrow list-none">
+                        <li>Hỗ trợ dịch vụ 24/7</li>
+                        <li>Giải quyết khiếu nại hợp lý</li>
+                        <li>Đội ngũ tận tâm, đáng tin cậy</li>
+                        <li>Dịch vụ chuyên nghiệp</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

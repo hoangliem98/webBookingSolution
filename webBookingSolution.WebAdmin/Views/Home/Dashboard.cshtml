@@ -1,0 +1,86 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Dashboard
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4" style="padding: 10px 0 0 20px;">
+                <form asp-action="Dashboard" method="get">
+                    <div class="d-flex align-items-center">
+                        <div class="form-group">
+                            <label class="control-label">Chọn năm</label>
+                            <select name="year" class="form-control" asp-items="@ViewBag.Years"></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary ml-2 mt-3">Xem</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+                <div id="columnchart_values"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        $('#dashboard').addClass('active');
+
+        google.charts.load("current", { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Element", "Tổng tiền", { role: "style" }],
+                ["Tháng 1", @Model.Jan, "#ecdb54"],
+                ["Tháng 2", @Model.Feb, "#e34132"],
+                ["Tháng 3", @Model.Mar, "#6caodc"],
+                ["Tháng 4", @Model.Apr, "#944743"],
+                ["Tháng 5", @Model.May, "#dbb2d1"],
+                ["Tháng 6", @Model.Jun, "#ec9787"],
+                ["Tháng 7", @Model.Jul, "#ooa68c"],
+                ["Tháng 8", @Model.Aug, "#645394"],
+                ["Tháng 9", @Model.Sep, "#6c4f3d"],
+                ["Tháng 10", @Model.Oct, "#ebe1df"],
+                ["Tháng 11", @Model.Nov, "#bffd833"],
+                ["Tháng 12", @Model.Dec, "#00a68c"],
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Thống kê doanh thu",
+                width: 1000,
+                height: 500,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+        }
+    </script>
+}
+
+
+
+

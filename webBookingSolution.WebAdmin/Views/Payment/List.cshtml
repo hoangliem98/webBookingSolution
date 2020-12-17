@@ -1,0 +1,81 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Payments
+@model List<PaymentViewModel>
+
+@{
+    ViewData["Title"] = "Admin - Payment List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Quản lý đơn thanh toán</h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3" style="display: flex;">
+            <h6 class="m-0 font-weight-bold text-primary" style="width: 50%; padding-top: 8px;">Danh sách đơn thanh toán</h6>
+            <div style="width: 50%;">
+                <form asp-action="ExportExcel">
+                    <button type="submit" class="button-them">
+                        <i class="fa fa-download" aria-hidden="true"></i> Excel
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.SuccessMsg != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Mã đơn hàng</th>
+                            <th class="text-center">Ngày tổ chức</th>
+                            <th class="text-center">Ngày thanh toán</th>
+                            <th class="text-center">Nhân viên thanh toán</th>
+                            <th class="text-center">Khách hàng</th>
+                            <th class="text-center">Tạm tính</th>
+                            <th class="text-center">Phụ phí</th>
+                            <th class="text-center">Lý do trả phụ phí</th>
+                            <th class="text-center">Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@item.BookId</td>
+                                <td class="text-center">@item.OrganizationDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">@item.PaymentDate.ToString("yyyy/MM/dd")</td>
+                                <td class="text-center">@item.EmployeeName</td>
+                                <td class="text-center">@item.CustomerName</td>
+                                <td class="text-center">@item.TempPrice.ToString("#,###")</td>
+                                @if (item.DelayContent.Length == 0)
+                                {
+                                    <td class="text-center">Không có</td>
+                                    <td class="text-center">Không có</td>
+                                }
+                                @if (item.DelayContent.Length > 0)
+                                {
+                                    <td class="text-center">@item.DelayPrice.ToString("#,###")</td>
+                                    <td class="text-center">@item.DelayContent</td>
+                                }
+                                <td class="text-center">@item.TotalPrice.ToString("#,###")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#payment').addClass('active');
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+    </script>
+}
+

@@ -1,0 +1,111 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Halls
+@model HallCreateRequest
+
+@{
+    ViewData["Title"] = "Admin - Hall Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Thêm sảnh tiệc</h1>
+        </div>
+        <div class="col-lg-7" style="padding-bottom:120px">
+            @if (!Html.ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">@Html.ValidationSummary()</div>
+            }
+            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label>Tên sảnh tiệc<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="Name" placeholder="Tên sảnh tiệc" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập tên sảnh tiệc')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <div class="form-group">
+                    <label>Mô tả<span class="text-danger"> *</span></label>
+                    <textarea class="form-control ckeditor" asp-for="Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Hình ảnh<span class="text-danger"> *</span></label>
+                    <div class="file-loading">
+                        <input id="input-pr" asp-for="ThumbnailImage" type="file" class="file" multiple data-preview-file-type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Số bàn ít nhất<span class="text-danger"> *</span></label>
+                    <input class="form-control minimum" type="number" asp-for="MinimumTables" placeholder="Số bàn tối thiểu" required
+                           oninvalid="this.setCustomValidity('Vui lòng không để trống trường này')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <div class="form-group">
+                    <label>Số bàn nhiều nhất<span class="text-danger"> *</span></label>
+                    <input class="form-control maximum" type="number" asp-for="MaximumTables" placeholder="Số bàn tối đa" required
+                           oninvalid="this.setCustomValidity('Vui lòng không để trống trường này')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <div class="form-group">
+                    <label>Giá tiền<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="number" asp-for="Price" placeholder="Giá tiền" required
+                           oninvalid="this.setCustomValidity('Vui lòng không để trống trường này')"
+                           oninput="this.setCustomValidity('')" />
+                </div>
+                <button class="btn btn-danger" id="submit-all" type="submit">Thêm sảnh tiệc</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#hall').addClass('active');
+
+        $("form").submit(function (e) {
+            var _contents = Number(CKEDITOR.instances.Description.getData().replace(/<[^>]*>/gi, '').length);
+            if (_contents == 0) {
+                alert('Vui lòng nhập mô tả sảnh tiệc');
+                return false;
+            }
+            if ($('#ThumbnailImage').val() == "") {
+                alert('Vui lòng chọn ảnh');
+                return false;
+            }
+        });
+
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+
+        //$(".fileinput-upload-button").click(function () {
+        //    $("#submit-all").click();
+        //});
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#input-pr").fileinput({
+                uploadUrl: "/Hall/Create",
+                uploadAsync: false,
+                reversePreviewOrder: true,
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                browseOnZoneClick: true,
+                dropZoneTitle: 'Kéo & thả file tại đây &hellip;',
+                dropZoneClickTitle: '<br>(hoặc click để chọn {files})',
+                pauseLabel: 'Dừng',
+                uploadLabel: 'Tải lên',
+                msgNoFilesSelected: 'Không có file được chọn',
+                msgSelected: '{n} {files} được chọn',
+                msgUploadEnd: 'Xong',
+                msgPlaceholder: 'Chọn {files} ...',
+                allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+                msgInvalidFileExtension: 'Sai định dạng file "{name}". Chỉ được chọn các file "{extensions}".',
+                minFileCount: 1,
+                maxFileCount: 8,
+                msgFilesTooLess: 'Chọn ít nhất <b>{n}</b> {files} để tải lên',
+                msgFilesTooMany: 'Số file được đã chọn <b>({n})</b> vượt quá số lượng file được chọn là <b>{m}</b>.',
+                msgTotalFilesTooMany: 'Có thể tải lên tối đa <b>{m}</b> files. Số file hiện tại là (<b>{n}</b> ).',
+            });
+        });
+    </script>
+}
+

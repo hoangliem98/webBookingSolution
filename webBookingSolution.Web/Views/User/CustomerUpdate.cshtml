@@ -1,0 +1,125 @@
+﻿@using webBookingSolution.ViewModels.Catalog.Customers
+@model CustomerUpdateRequest
+@{
+    ViewData["Title"] = "Party Booking - Update Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Thông tin tài khoản</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="tour-booking-form">
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">@Html.ValidationSummary()</div>
+        }
+        @if (ViewBag.SuccessMsg != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.SuccessMsg
+            </div>
+        }
+        <form asp-action="CustomerUpdate" enctype="multipart/form-data" method="post">
+            <div style="display: flex;">
+                <div class="form-group" style="width: 49%; margin-right: 2%">
+                    <label style="margin-left: 1%;">Họ<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="FirstName" placeholder="Họ" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập họ')"
+                           oninput="this.setCustomValidity('')" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width: 49%;">
+                    <label style="margin-left: 1%;">Tên<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="LastName" placeholder="Tên" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập tên')"
+                           oninput="this.setCustomValidity('')" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div class="form-group" style="width: 49%; margin-right: 2%;">
+                    <label style="margin-left: 1%;">Ngày sinh<span class="text-danger"> *</span></label>
+                    <div class="input-group date" id="datepicker">
+                        <input type="text" class="form-control" asp-for="DOB" placeholder="Ngày sinh" readonly />
+                        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                    </div>
+                </div>
+                <div class="form-group" style="width: 49%;">
+                    <label style="margin-left: 1%;">Số điện thoại<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="PhoneNumber" placeholder="Số điện thoại" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')"
+                           oninput="this.setCustomValidity('')" />
+
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Hình ảnh<span class="text-danger"> *</span></label>
+                <input type="file" class="input-img" id="image_upload" />
+                <label class="instead-img" asp-for="Image" for="image_upload">
+                    <img class="image_preview_container" src="@Model.ImagePath" alt="preview image" />
+                </label>
+            </div>
+            <div style="display: flex;">
+                <div class="form-group" style="width: 49%; margin-right: 2%">
+                    <label style="margin-left: 1%;">Email<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="Email" placeholder="Email" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập email')"
+                           oninput="this.setCustomValidity('')" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="width: 49%;">
+                    <label style="margin-left: 1%;">Địa chỉ<span class="text-danger"> *</span></label>
+                    <input class="form-control" type="text" asp-for="Address" placeholder="Địa chỉ" required
+                           oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ')"
+                           oninput="this.setCustomValidity('')" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                @if (@Model.AccountId != null)
+                {
+                    <div style="width: 48%; margin-right: 1%">
+                        <button style="float: right;" class="btn btn-primary" type="submit">Sửa thông tin</button>
+                    </div>
+                    <div style="width: 48%; margin-left: 1%">
+                        <a href="/User/ChangePassword/@Model.AccountId" class="btn btn-primary">
+                            Đổi mật khẩu
+                        </a>
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        setTimeout(function () {
+            $(".alert").fadeOut('slow');
+        }, 6000);
+
+        $(function () {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                changeYear: true,
+                changeMonth: true,
+                yearRange: "-100:+20",
+                //startDate: new Date(),
+            });
+        });
+    </script>
+}

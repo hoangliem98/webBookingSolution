@@ -1,0 +1,16 @@
+﻿@using webBookingSolution.ViewModels.Catalog.HallImages
+@model List<HallImageViewModel>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="list-image">
+        @foreach (var image in Model)
+        {
+            <img class="admin-image" src="@image.Path" alt="@image.Path" />
+        }
+    </div>
+</div>
