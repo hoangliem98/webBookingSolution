@@ -72,13 +72,13 @@ namespace webBookingSolution.Application.Catalog.Books
                 book.ServiceInBooks = new List<ServiceInBook>();
                 foreach (var item in request.ServiceId)
                 {
-                    var service = await _svService.GetById(item);
+                    var service = await _svService.GetById(item.Id);
                     decimal tmp = total;
                     total = tmp + service.Price;
                     book.ServiceInBooks.Add(
                          new ServiceInBook()
                          {
-                             ServiceId = item
+                             ServiceId = item.Id
                          }
                      );
                 }

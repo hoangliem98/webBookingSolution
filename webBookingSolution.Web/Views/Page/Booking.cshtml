@@ -111,39 +111,39 @@
                             <div style="display: flex;">
                                 <div class="form-group" style="width: 49%; margin-right: 2%">
                                     <label style="margin-left: 1%;">Họ<span class="text-danger"> *</span></label>
-                                    <input class="form-control" type="text" asp-for="customerCreateRequest.FirstName" value="@User.FindFirst(ClaimTypes.Surname)?.Value" placeholder="Họ" id="customerInput1" required
+                                    <input class="form-control" type="text" asp-for="CustomerCreateRequest.FirstName" value="@User.FindFirst(ClaimTypes.Surname)?.Value" placeholder="Họ" id="customerInput1" required
                                            oninvalid="this.setCustomValidity('Vui lòng nhập họ')"
                                            oninput="this.setCustomValidity('')" />
-                                    <span id="customerValidate" asp-validation-for="customerCreateRequest.FirstName" class="text-danger"></span>
+                                    <span id="customerValidate" asp-validation-for="CustomerCreateRequest.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group" style="width: 49%;">
                                     <label style="margin-left: 1%;">Tên<span class="text-danger"> *</span></label>
-                                    <input class="form-control" type="text" asp-for="customerCreateRequest.LastName"  value="@User.FindFirst(ClaimTypes.GivenName)?.Value" placeholder="Tên" id="customerInput2" required
+                                    <input class="form-control" type="text" asp-for="CustomerCreateRequest.LastName"  value="@User.FindFirst(ClaimTypes.GivenName)?.Value" placeholder="Tên" id="customerInput2" required
                                            oninvalid="this.setCustomValidity('Vui lòng nhập tên')"
                                            oninput="this.setCustomValidity('')" />
-                                    <span id="customerValidate" asp-validation-for="customerCreateRequest.LastName" class="text-danger"></span>
+                                    <span id="customerValidate" asp-validation-for="CustomerCreateRequest.LastName" class="text-danger"></span>
                                 </div>
                             </div>
                             <div style="display: flex;">
                                 <div class="form-group" style="width: 49%; margin-right: 2%;">
                                     <label style="margin-left: 1%;">Ngày sinh<span class="text-danger"> *</span></label>
                                     <div class="input-group date" id="datepickerDOB" style="cursor: pointer;">
-                                        <input style="cursor: pointer;" type="text" class="form-control" asp-for="customerCreateRequest.DOB" id="customerInput6" placeholder="Ngày sinh" readonly />
+                                        <input style="cursor: pointer;" type="text" class="form-control" asp-for="CustomerCreateRequest.DOB" id="customerInput6" placeholder="Ngày sinh" readonly />
                                         <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                                        <span style="width: 100%" id="customerValidate" asp-validation-for="customerCreateRequest.DOB" class="text-danger"></span>
+                                        <span style="width: 100%" id="customerValidate" asp-validation-for="CustomerCreateRequest.DOB" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group" style="width: 49%;">
                                     <label style="margin-left: 1%;">Số điện thoại<span class="text-danger"> *</span></label>
-                                    <input class="form-control" type="text" asp-for="customerCreateRequest.PhoneNumber" placeholder="Số điện thoại" id="customerInput3" required
+                                    <input class="form-control" type="text" asp-for="CustomerCreateRequest.PhoneNumber" placeholder="Số điện thoại" id="customerInput3" required
                                            oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')"
                                            oninput="this.setCustomValidity('')" />
-                                    <span id="customerValidate" asp-validation-for="customerCreateRequest.PhoneNumber" class="text-danger"></span>
+                                    <span id="customerValidate" asp-validation-for="CustomerCreateRequest.PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Hình ảnh<span class="text-danger"> *</span></label>
-                                <input type="file" class="input-img" asp-for="customerCreateRequest.Image" id="image_upload" value="https://graph.facebook.com/@User.FindFirstValue(ClaimTypes.NameIdentifier)/picture?type=large" required />
+                                <input type="file" class="input-img" asp-for="CustomerCreateRequest.Image" id="image_upload" value="https://graph.facebook.com/@User.FindFirstValue(ClaimTypes.NameIdentifier)/picture?type=large" required />
                                 <label class="instead-img" for="image_upload">
                                     @if (User.Identity.IsAuthenticated && User.FindFirst(ClaimTypes.Role)?.Value == null)
                                     {
@@ -162,17 +162,17 @@
                             <div style="display: flex;">
                                 <div class="form-group" style="width: 49%; margin-right: 2%">
                                     <label style="margin-left: 1%;">Email<span class="text-danger"> *</span></label>
-                                    <input class="form-control" type="text" asp-for="customerCreateRequest.Email" value="@User.FindFirst(ClaimTypes.Email)?.Value" placeholder="Email" id="customerInput4" required
+                                    <input class="form-control" type="text" asp-for="CustomerCreateRequest.Email" value="@User.FindFirst(ClaimTypes.Email)?.Value" placeholder="Email" id="customerInput4" required
                                            oninvalid="this.setCustomValidity('Vui lòng nhập email')"
                                            oninput="this.setCustomValidity('')" />
-                                    <span id="customerValidate" asp-validation-for="customerCreateRequest.Email" class="text-danger"></span>
+                                    <span id="customerValidate" asp-validation-for="CustomerCreateRequest.Email" class="text-danger"></span>
                                 </div>
                                 <div class="form-group" style="width: 49%;">
                                     <label style="margin-left: 1%;">Địa chỉ<span class="text-danger"> *</span></label>
-                                    <input class="form-control" type="text" asp-for="customerCreateRequest.Address" placeholder="Địa chỉ" id="customerInput5" required
+                                    <input class="form-control" type="text" asp-for="CustomerCreateRequest.Address" placeholder="Địa chỉ" id="customerInput5" required
                                            oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ')"
                                            oninput="this.setCustomValidity('')" />
-                                    <span id="customerValidate" asp-validation-for="customerCreateRequest.Address" class="text-danger"></span>
+                                    <span id="customerValidate" asp-validation-for="CustomerCreateRequest.Address" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>

@@ -66,13 +66,13 @@ namespace webBookingSolution.WebAdmin.Controllers
 
             if (token == "Tài khoản không đủ quyền để vào trang này")
             {
-                TempData["result"] = "Tài khoản không đủ quyền để vào trang này";
-                return RedirectToAction("Login", "User");
+                ViewBag.FailedMsg = "Tài khoản không đủ quyền để vào trang này";
+                return View(request);
             }
             else if (token == "Sai tài khoản hoặc mật khẩu")
             {
-                TempData["result"] = "Sai tài khoản hoặc mật khẩu";
-                return RedirectToAction("Login", "User");
+                ViewBag.FailedMsg = "Sai tài khoản hoặc mật khẩu";
+                return View(request);
             }
             else
             {

@@ -150,7 +150,7 @@ namespace webBookingSolution.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Booking()
+        public async Task<IActionResult> Booking(BookViewModel book)
         {
             var hall = await _hallApiClient.GetAll();
             ViewBag.Halls = hall.Select(x => new SelectListItem()
@@ -165,6 +165,7 @@ namespace webBookingSolution.Web.Controllers
                 Text = x.Name + " - " + x.Price.ToString("#,###") + " đồng",
                 Value = x.Id.ToString()
             });
+
             ViewBag.Services = await _context.Services.Select(x => new CheckBoxItem()
             {
                 Id = x.Id,
@@ -172,10 +173,19 @@ namespace webBookingSolution.Web.Controllers
                 Price = x.Price,
                 IsChecked = false
             }).ToListAsync();
+
             var bookViewModel = new BookCreateRequest()
             {
                 Service = ViewBag.Services
             };
+            if(book != null)
+            {
+                bookViewModel.CustomerCreateRequest = book.Customer;
+                bookViewModel.NumberTables = book.NumberTables;
+                bookViewModel.OrganizationDate = book.OrganizationDate;
+                bookViewModel.BookDate = book.BookDate;
+                bookViewModel.Season = book.Season;
+            }
             return View(bookViewModel);
         }
 
@@ -183,13 +193,26 @@ namespace webBookingSolution.Web.Controllers
         public async Task<IActionResult> Booking(BookCreateRequest request)
         {
             if (!ModelState.IsValid)
-                return await Booking();
+            {
+                var bookViewModel = new BookViewModel()
+                {
+                    NumberTables = request.NumberTables,
+                    OrganizationDate = request.OrganizationDate,
+                    BookDate = request.BookDate,
+                    Season = request.Season,
+                    Customer = request.CustomerCreateRequest,
+                    HallId = request.HallId,
+                    MenuId = request.MenuId,
+                    Service = request.ServiceId
+                };
+                return await Booking(bookViewModel);
+            }
 
             if (User.Identity.IsAuthenticated && User.FindFirst(ClaimTypes.Role)?.Value == "0")
             {
                 request.CustomerId = int.Parse(User.FindFirst("UserId").Value);
                 var customer = await _customerApiClient.GetById(request.CustomerId);
-                request.customerCreateRequest = new CustomerCreateRequest()
+                request.CustomerCreateRequest = new CustomerCreateRequest()
                 {
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,
@@ -210,17 +233,17 @@ namespace webBookingSolution.Web.Controllers
                     await _customerApiClient.Delete(customerId);
                 }
                 ModelState.AddModelError("", "Sảnh đã được đặt vào thời gian đó vui lòng chọn ngày hoặc buổi khác");
-                return await Booking();
+                return View(request);
             }
             if(result == "Khách hàng đã tồn tại")
             {
                 ModelState.AddModelError("", "Khách hàng đã tồn tại");
-                return await Booking();
+                return View(request);
             }
             if (result == "0" || result.Length > 10)
             {
                 ModelState.AddModelError("", "Đặt sảnh thất bại");
-                return await Booking();
+                return View(request);
             }
             return RedirectToAction("BookResult", "Page", new { @id = result });
         }

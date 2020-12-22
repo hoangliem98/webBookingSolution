@@ -28,25 +28,25 @@ namespace webBookingSolution.Api.Books
 
             var requestContent = new MultipartFormDataContent();
 
-            if (request.customerCreateRequest != null)
+            if (request.CustomerCreateRequest != null)
             {
-                if (request.customerCreateRequest.Image != null)
+                if (request.CustomerCreateRequest.Image != null)
                 {
                     byte[] data;
-                    using (var br = new BinaryReader(request.customerCreateRequest.Image.OpenReadStream()))
+                    using (var br = new BinaryReader(request.CustomerCreateRequest.Image.OpenReadStream()))
                     {
-                        data = br.ReadBytes((int)request.customerCreateRequest.Image.OpenReadStream().Length);
+                        data = br.ReadBytes((int)request.CustomerCreateRequest.Image.OpenReadStream().Length);
                     }
                     ByteArrayContent bytes = new ByteArrayContent(data);
-                    requestContent.Add(bytes, "customerCreateRequest.Image", request.customerCreateRequest.Image.FileName);
+                    requestContent.Add(bytes, "customerCreateRequest.Image", request.CustomerCreateRequest.Image.FileName);
                 }
 
-                requestContent.Add(new StringContent(request.customerCreateRequest.FirstName), "customerCreateRequest.firstname");
-                requestContent.Add(new StringContent(request.customerCreateRequest.LastName), "customerCreateRequest.lastname");
-                requestContent.Add(new StringContent(request.customerCreateRequest.DOB.ToString()), "customerCreateRequest.dob");
-                requestContent.Add(new StringContent(request.customerCreateRequest.PhoneNumber), "customerCreateRequest.phonenumber");
-                requestContent.Add(new StringContent(request.customerCreateRequest.Email), "customerCreateRequest.email");
-                requestContent.Add(new StringContent(request.customerCreateRequest.Address), "customerCreateRequest.address");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.FirstName), "customerCreateRequest.firstname");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.LastName), "customerCreateRequest.lastname");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.DOB.ToString()), "customerCreateRequest.dob");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.PhoneNumber), "customerCreateRequest.phonenumber");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.Email), "customerCreateRequest.email");
+                requestContent.Add(new StringContent(request.CustomerCreateRequest.Address), "customerCreateRequest.address");
             }
 
             foreach (var item in request.Service)

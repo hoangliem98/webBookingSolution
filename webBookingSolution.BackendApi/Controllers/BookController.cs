@@ -36,9 +36,9 @@ namespace webBookingSolution.BackendApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (request.customerCreateRequest != null && request.CustomerId == 0)
+            if (request.CustomerCreateRequest != null && request.CustomerId == 0)
             {
-                var customerId = await _customerService.Create(request.customerCreateRequest);
+                var customerId = await _customerService.Create(request.CustomerCreateRequest);
                 request.CustomerId = customerId;
                 if (customerId == 0)
                 {
